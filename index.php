@@ -3,11 +3,11 @@
 // https://restzg.ru/phpb24/googleSheetsAPI/
 // Connect the Google Sheets API client
 require_once __DIR__ . '/vendor/autoload.php';
+require_once 'GoogleService.php';
 
 // Our service account access key
 $googleAccountKeyFilePath = __DIR__ . '/popov-php-bitrix24-zg-20220603-a1df757bd724.json';
 putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $googleAccountKeyFilePath);
-
 // Create new client
 $client = new Google_Client();
 // Set credentials
@@ -19,16 +19,19 @@ $service = new Google_Service_Sheets($client);
 // you spreadsheet ID
 $spreadsheetId = '19SvdLfCv-OM9yBSG5ojbDc3UdZA-VqGH1ULtqZgB1AY';
 
-$response = $service->spreadsheets->get($spreadsheetId);
+//$response =  $service->spreadsheets->get($spreadsheetId);
+
+$googleService = new GoogleService($googleAccountKeyFilePath, $spreadsheetId);
+$spreadSheet = $googleService->spreadSheet();
 
 // Получение свойств таблицы
-$spreadsheetProperties = $response->getProperties();
+$spreadSheetProperties = $spreadSheet->getProperties();
 
 // Имя таблицы
-var_dump($spreadsheetProperties->title);
+var_dump($spreadSheetProperties->title);
 
 // Обход всех листов
-foreach($response->getSheets() as $sheet) {
+foreach ($spreadSheet->getSheets() as $sheet) {
 
     // Получаем свойства листа
     $sheetProperties = $sheet->getProperties();
@@ -37,3 +40,4 @@ foreach($response->getSheets() as $sheet) {
     // Имя листа
     var_dump($sheetProperties->title);
 }
+

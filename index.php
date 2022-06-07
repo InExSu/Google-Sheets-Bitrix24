@@ -6,7 +6,7 @@
 
 // Connect the Google Sheets API client
 require_once __DIR__ . '/vendor/autoload.php';
-require_once 'GoogleService.php';
+require_once 'Google.php';
 
 // Our service account access key
 $googleAccountKeyFilePath = __DIR__ . '/popov-php-bitrix24-zg-20220603-a1df757bd724.json';
@@ -24,12 +24,17 @@ $spreadsheetId = '19SvdLfCv-OM9yBSG5ojbDc3UdZA-VqGH1ULtqZgB1AY';
 
 //$response =  $service->spreadsheets->get($spreadsheetId);
 
-$googleService = new GoogleService($googleAccountKeyFilePath, $spreadsheetId);
-$spreadSheet = $googleService->spreadSheet();
+$google = new Google($googleAccountKeyFilePath, $spreadsheetId);
+$googleService = $google->service();
+$spreadSheet = $googleService->spreadsheets->get($spreadsheetId);
 
 // Получение свойств таблицы
 $spreadSheetProperties = $spreadSheet->getProperties();
 
+$range = '2021!A1:B4';
+$response = $googleService->spreadsheets_values->get($spreadsheetId, $range);
+
+var_dump($response);
 // Имя таблицы
 //var_dump($spreadSheetProperties->title);
 
@@ -43,8 +48,3 @@ $spreadSheetProperties = $spreadSheet->getProperties();
 //    // Имя листа
 //    var_dump($sheetProperties->title);
 //}
-
-$range = '2021!A1:B4';
-$response = $googleService->spreadsheets_values->get($spreadsheetId, $range);
-
-var_dump($response);

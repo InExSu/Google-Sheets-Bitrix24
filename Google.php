@@ -1,6 +1,6 @@
 <?php
 
-class GoogleService
+class Google
 {
     public Google_Client $client;
     public Google_Service_Sheets $service;
@@ -16,17 +16,16 @@ class GoogleService
 
     /**
      * Пример вызова - по файлу JSON и id гугл таблицы вернуть гуглтаблицу
-     * $googleService = new GoogleService($googleAccountKeyFilePath, $spreadsheetId);
-     * $spreadSheet = $googleService->spreadSheet();
+     * $google = new Google($googleAccountKeyFilePath, $spreadsheetId);
+     * $googleService = $google->service();
      */
-    public function spreadSheet(): Google\Service\Sheets\Spreadsheet
+    public function service(): Google_Service_Sheets
     {
         putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $this->googleCredentialsFilePath);
         $this->client = new Google_Client;
         $this->client->useApplicationDefaultCredentials();
         // Adding an access area for reading, editing, creating and deleting tables
         $this->client->addScope('https://www.googleapis.com/auth/spreadsheets');
-        $this->service = new Google_Service_Sheets($this->client);
-        return $this->service->spreadsheets->get($this->spreadSheetId);
+        return new Google_Service_Sheets($this->client);
     }
 }

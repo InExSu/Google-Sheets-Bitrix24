@@ -14,6 +14,11 @@ class GoogleService
         $this->spreadSheetId = $spreadSheetId;
     }
 
+    /**
+     * Пример вызова - по файлу JSON и id гугл таблицы вернуть гуглтаблицу
+     * $googleService = new GoogleService($googleAccountKeyFilePath, $spreadsheetId);
+     * $spreadSheet = $googleService->spreadSheet();
+     */
     public function spreadSheet(): Google\Service\Sheets\Spreadsheet
     {
         putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $this->googleCredentialsFilePath);

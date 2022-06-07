@@ -24,21 +24,41 @@ $googleAccountKeyFilePath = __DIR__ . '/popov-php-bitrix24-zg-20220603-a1df757bd
 // Контакты с выставки spreadsheet ID
 //$spreadsheetId = '19SvdLfCv-OM9yBSG5ojbDc3UdZA-VqGH1ULtqZgB1AY';
 // Гугл таблица для тестов, экспериментов
-$spreadsheetId = '1AyQgdT7OH0htFn06K_3DskDh5huS9BdN2OIdQLmgCEs';
+$spreadSheetId = '1AyQgdT7OH0htFn06K_3DskDh5huS9BdN2OIdQLmgCEs';
 
 //$response =  $service->spreadsheets->get($spreadsheetId);
 
-$google = new Google($googleAccountKeyFilePath, $spreadsheetId);
+$google = new Google($googleAccountKeyFilePath, $spreadSheetId);
 $googleService = $google->service();
-$spreadSheet = $googleService->spreadsheets->get($spreadsheetId);
+$spreadSheet = $googleService->spreadsheets->get($spreadSheetId);
 
 // Получение свойств таблицы
 $spreadSheetProperties = $spreadSheet->getProperties();
 
-$range = 'Лист!A1:D2';
-$response = $googleService->spreadsheets_values->get($spreadsheetId, $range);
+$range = 'Лист1!A1:D2';
+$response = $googleService->spreadsheets_values->get($spreadSheetId, $range);
+//var_dump($response);
 
-var_dump($response);
+
+/**
+ * Обновление диапазона ячеек
+ */
+
+// Данные для обновления
+$values = [
+    ["2022-06-07", "33"],
+];
+
+// Объект - диапазон значений
+$ValueRange = new Google_Service_Sheets_ValueRange();
+// Устанавливаем наши данные
+$ValueRange->setValues($values);
+// Указываем в опциях обрабатывать пользовательские данные
+$options = ['valueInputOption' => 'USER_ENTERED'];
+// Делаем запрос с указанием во втором параметре названия листа и начальную ячейку для заполнения
+$googleService->spreadsheets_values->update($spreadSheetId, 'Лист1!C2', $ValueRange, $options);
+
+
 // Имя таблицы
 //var_dump($spreadSheetProperties->title);
 

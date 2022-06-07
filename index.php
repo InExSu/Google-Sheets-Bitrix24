@@ -19,7 +19,7 @@ $googleAccountKeyFilePath = __DIR__ . '/popov-php-bitrix24-zg-20220603-a1df757bd
 //$client->addScope('https://www.googleapis.com/auth/spreadsheets');
 //$service = new Google_Service_Sheets($client);
 
-// you spreadsheet ID
+// Контакты с выставки spreadsheet ID
 $spreadsheetId = '19SvdLfCv-OM9yBSG5ojbDc3UdZA-VqGH1ULtqZgB1AY';
 
 //$response =  $service->spreadsheets->get($spreadsheetId);
@@ -31,16 +31,20 @@ $spreadSheet = $googleService->spreadSheet();
 $spreadSheetProperties = $spreadSheet->getProperties();
 
 // Имя таблицы
-var_dump($spreadSheetProperties->title);
+//var_dump($spreadSheetProperties->title);
 
 // Обход всех листов
-foreach ($spreadSheet->getSheets() as $sheet) {
+//foreach ($spreadSheet->getSheets() as $sheet) {
+//
+//    // Получаем свойства листа
+//    $sheetProperties = $sheet->getProperties();
+//    // Идентификатор листа
+//    var_dump($sheetProperties->index);
+//    // Имя листа
+//    var_dump($sheetProperties->title);
+//}
 
-    // Получаем свойства листа
-    $sheetProperties = $sheet->getProperties();
-    // Идентификатор листа
-    var_dump($sheetProperties->index);
-    // Имя листа
-    var_dump($sheetProperties->title);
-}
+$range = '2021!A1:B4';
+$response = $googleService->spreadsheets_values->get($spreadsheetId, $range);
 
+var_dump($response);

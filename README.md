@@ -1,4 +1,5 @@
 ```mermaid
+%% https://mermaid.live
 stateDiagram-v2
 s00: s00 Состояние начальное
 s01: s01 SpreadSheet доступен
@@ -41,9 +42,11 @@ s08 --> s09
 s08 --> s07: Пусто
 s09 --> s10
 s09 --> s07: Пусто
+state Лид {
 s10 --> s11
-s15 --> s12
 s11 --> s14
+}
+s15 --> s12
 s14 --> s15
 }
 s12 --> s13

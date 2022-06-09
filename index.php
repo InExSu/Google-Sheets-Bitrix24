@@ -7,68 +7,43 @@
 // service-account-01@popov-php-bitrix24-zg-20220603.iam.gserviceaccount.com
 
 // Connect the Google Sheets API client
-require_once __DIR__ . '/vendor/autoload.php';
-require_once 'Google.php';
+//require_once __DIR__ . '/vendor/autoload.php';
+//require_once 'Google.php';l
 
-// Our service account access key
-$googleAccountKeyFilePath = __DIR__ . '/popov-php-bitrix24-zg-20220603-a1df757bd724.json';
-//putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $googleAccountKeyFilePath);
-//// Create new client
-//$client = new Google_Client();
-//// Set credentials
-//$client->useApplicationDefaultCredentials();
-//// Adding an access area for reading, editing, creating and deleting tables
-//$client->addScope('https://www.googleapis.com/auth/spreadsheets');
-//$service = new Google_Service_Sheets($client);
+bitrix24_Leads_from_Array(
+    gss_Range_2_Array2D(
+        gss_Range('адрес',
+            gss_Sheet("Имя",
+                gss_Spread('ID')))),
+    bitrix24('вебхук'),
+);
 
-// Контакты с выставки spreadsheet ID
-//$spreadsheetId = '19SvdLfCv-OM9yBSG5ojbDc3UdZA-VqGH1ULtqZgB1AY';
-// Гугл таблица для тестов, экспериментов
-$spreadSheetId = '1AyQgdT7OH0htFn06K_3DskDh5huS9BdN2OIdQLmgCEs';
+function bitrix24_Leads_from_Array($array2d, $bitrix24)
+{
 
-//$response =  $service->spreadsheets->get($spreadsheetId);
+}
 
-$google = new Google($googleAccountKeyFilePath, $spreadSheetId);
-$googleService = $google->service();
-$spreadSheet = $googleService->spreadsheets->get($spreadSheetId);
+function gss_Range_2_Array2D($gss_Range)
+{
 
-// Получение свойств таблицы
-$spreadSheetProperties = $spreadSheet->getProperties();
+}
 
-$range = 'Лист1!A1:D2';
-$response = $googleService->spreadsheets_values->get($spreadSheetId, $range);
-//var_dump($response);
+function gss_Range($address, $gss_Sheet)
+{
 
+}
 
-/**
- * Обновление диапазона ячеек
- */
+function gss_Sheet($name, $gss_Spread)
+{
 
-// Данные для обновления
-$values = [
-    ["2022-06-07", "33"],
-];
+}
 
-// Объект - диапазон значений
-$ValueRange = new Google_Service_Sheets_ValueRange();
-// Устанавливаем наши данные
-$ValueRange->setValues($values);
-// Указываем в опциях обрабатывать пользовательские данные
-$options = ['valueInputOption' => 'USER_ENTERED'];
-// Делаем запрос с указанием во втором параметре названия листа и начальную ячейку для заполнения
-$googleService->spreadsheets_values->update($spreadSheetId, 'Лист1!C2', $ValueRange, $options);
+function gss_Spread($id)
+{
 
+}
 
-// Имя таблицы
-//var_dump($spreadSheetProperties->title);
+function bitrix24($webHook)
+{
 
-// Обход всех листов
-//foreach ($spreadSheet->getSheets() as $sheet) {
-//
-//    // Получаем свойства листа
-//    $sheetProperties = $sheet->getProperties();
-//    // Идентификатор листа
-//    var_dump($sheetProperties->index);
-//    // Имя листа
-//    var_dump($sheetProperties->title);
-//}
+}

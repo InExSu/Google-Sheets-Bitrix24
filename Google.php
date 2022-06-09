@@ -19,7 +19,7 @@ class Google
      * $google = new Google($googleAccountKeyFilePath, $spreadsheetId);
      * $googleService = $google->service();
      */
-    public function service(): Google_Service_Sheets
+    public function service_Sheets(): Google_Service_Sheets
     {
         putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $this->googleCredentialsFilePath);
         $this->client = new Google_Client;

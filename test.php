@@ -1,9 +1,3 @@
 <?php
-$c = "89516432741";
-$d = "Proklyte31071998";
-$data = array(
-    ':login'    => $c,
-    ':password' => $d
-);
-print_r($data);
-;
+$a = ['a',1];
+print_r($a);

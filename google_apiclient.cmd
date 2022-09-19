@@ -1,0 +1,1 @@
+composer require google/apiclient:^2.4 --with-all-dependencies

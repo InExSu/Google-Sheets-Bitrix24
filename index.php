@@ -81,31 +81,31 @@ function array_2_Google_Sheet(array $array,
                                                        $arr_Options);
 }
 
-/** массив Php в массив для диапазона гугл таблицы */
-function array_Php_2_Array_Sheet($arr_Php): array
+/** массив Php в массив для вставки в диапазон гугл таблицы */
+function array_Php_2_Array_Sheet(array $arr_Php): array
 {
-// Todo ошибка: Invalid JSON payload received. Unknown name \"1\" at 'data.values': Cannot find field.\
-
 
     $max = count($arr_Php);
 
     $arr_Sheet = [];
 
-    for ($row = 1; $row < $max; $row++) {
-
+    for ($row = 0; $row < $max; $row++) {
         foreach ($arr_Php[$row] as $key => $elem) {
             if (is_array($elem)) {
-                $stop = true;
-                if (isset($elem['downloadUrl'])) {
-                    $arr_Sheet[$row][] = $elem['downloadUrl'];
-                } else {
-                    // todo где проскакивает вложенный массив
-                }
-
+                $arr_Sheet[$row][] = implode(';',
+                                             $elem);
             } else {
-                $arr_Sheet[$row][] = ($arr_Php[$row][$key] == null) ? '' : $arr_Php[$row][$key];
+                $arr_Sheet[$row][] = null_2($arr_Php[$row][$key],
+                                            '');
             }
         }
     }
     return $arr_Sheet;
+}
+
+/** если null, то заменить на, иначе без изменений  */
+function null_2($value,
+                $replace)
+{
+    return ($value == null) ? $replace : $value;
 }

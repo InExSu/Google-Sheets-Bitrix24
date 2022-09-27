@@ -4,7 +4,7 @@ require_once 'index.php';
 
 function bitrix24_Leads_from_Array_Test()
 {
-    $googleSheet_Range_Address = '2021 год'; // весь диапазон листа
+    $googleSheet_Range_Address = 'список'; // весь диапазон листа
     $googleSheet_Spread_ID     = '18B7ifEIqg0GHyET5AX-RM0ZVv1Sm9phJWJNRbNaH0SM'; // Контакты с выставки
     global $File_Credentials;
 
@@ -17,7 +17,7 @@ function bitrix24_Leads_from_Array_Test()
 
 function googleSheet_Range_2_Array_Test()
 {
-    $googleSheet_Range_Address = '2021 год'; // весь диапазон листа
+    $googleSheet_Range_Address = 'список'; // весь диапазон листа
     $googleSheet_Spread_ID     = '18B7ifEIqg0GHyET5AX-RM0ZVv1Sm9phJWJNRbNaH0SM'; // Контакты с выставки
     global $File_Credentials;
 
@@ -50,5 +50,26 @@ function array_2_Google_Sheet_Test()
     assert($result['updatedCells'] == 6);
 }
 
+function array_Php_2_Array_Sheet_Order_Test()
+{
+    $arr_Php    = [
+        'V' => 'v',
+        'A' => 'a',
+        'Z' => 'z',];
+    $arr_Fields = [
+        0 => 'Z',
+        1 => 'A',
+        2 => 'V',
+    ];
+
+    $res = array_Php_2_Array_Sheet_Order($arr_Php,
+                                         $arr_Fields);
+//    var_dump($res);
+    foreach ($res as $key => $value) {
+        var_dump($key . " => " . $value);
+    }
+}
+
 //array_2_Google_Sheet_Test();
-googleSheet_Range_2_Array_Test();
+//googleSheet_Range_2_Array_Test();
+//array_Php_2_Array_Sheet_Order_Test();

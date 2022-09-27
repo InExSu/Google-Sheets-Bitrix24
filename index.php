@@ -15,7 +15,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 require_once 'Google.php';
 
 $File_Credentials          = __DIR__ . '/popov-php-bitrix24-zg-20220603-a1df757bd724.json';
-$googleSheet_Range_Address = "2021 год"; // весь диапазон листа
+$googleSheet_Range_Address = "список"; // весь диапазон листа
 $googleSheet_Spread_ID     = '18B7ifEIqg0GHyET5AX-RM0ZVv1Sm9phJWJNRbNaH0SM'; // Контакты с выставки
 
 function bitrix24_Leads_from_Array($object,
@@ -99,6 +99,19 @@ function array_Php_2_Array_Sheet(array $arr_Php): array
                                             '');
             }
         }
+    }
+    return $arr_Sheet;
+}
+
+function array_Php_2_Array_Sheet_Order(array $arr_Php,
+                                       array $arr_Fields): array
+{
+    $arr_Sheet = [];
+
+    foreach ($arr_Fields as $elem) {
+        $value     = $arr_Php[$elem];
+        $arr_Sheet = array_merge($arr_Sheet,
+                                 [$elem => $value]);
     }
     return $arr_Sheet;
 }
